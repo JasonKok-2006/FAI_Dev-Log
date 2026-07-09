@@ -1,4 +1,4 @@
-## FAI Dev-log | 1.1 – Pre-development discussion - Project defined
+## 1.1 – Pre-development discussion - Project defined
 
 The usage of AI has increased recently throughout the industry. As more coding tasks become automated, it is becoming clear that development jobs now become a task of testing and optimising AI outputs, rather than starting from scratch, as it was traditionally done. With code review and optimisations becoming a bigger part of the job, it’s more important than ever to understand the fundamentals of what makes good quality code compared to a poor quality code which looks like it works (until it breaks). That is why I plan to make a game (FAI), without the help of any AI tools.
 
