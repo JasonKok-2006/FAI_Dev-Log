@@ -11,6 +11,8 @@ Ever since I started learning to code, I knew I enjoyed solving problems using s
     2. [Git repo initialised](#part-2-git-repo-initialised)
 2. **Starting to draw a world**
     1. [Art direction](#part-1-art-direction)
+    2. [Creating the initial scene](#part-2-creating-the-initial-scene)
+
 ---
 
 # Chapter 1: Pre-development discussion
@@ -40,3 +42,19 @@ I’ll admit, I’ve never been great at art, as I come from a technical backgro
 By creating my tilesets with pixel art, I can accurately draw details I am happy with into my sprites in a timely manner. This allows me to showcase the journey leaning into a more technical side, compared to a more creative side. While both sides are important for a game developer’s skill set, I’m developing this game to advance my understanding of technical fundamentals further. Hence, spending too much time on the art for this game seems counterproductive. 
 
 To draw scenes efficiently, I have settled on using a 16x16 pixel tile size rather than 32x32. With smaller tile sizes, less art is repeated. By splitting up the tiles into smaller squares, complex patterns can be made up by piecing multiple smaller tiles together. These small tiles can be swapped out for alternative tiles allowing for an easy manipulation of the patterns without having to redraw previously made art.
+
+## Part 2: Creating the initial scene
+
+With a basic initial spritesheet drawn, I can open Godot and start to build a world in which the player would be able to interact with (once we add the player character). However, I need a way to convert the spritesheet .png file into a world within the Godot scene.
+
+![FAI hub first tileset](/Screenshots/2.2/fai_hub.png)
+
+This is where a TileMap node comes into play. TileMapLayer node to be exact due to the TileMap node now being deprecated in Godot version 4.6.3. A TileMapLayer is just one layer of a TileMap, a tool which provides a grid system that can be filled with sprites to create static worlds quickly. Alongside the grid system, it allows me to create and manage tilesets which can be formed by slicing .png files, providing the solution of turning a spritesheet into a world. 
+
+By using two layers (initially), one for the ground and one for the walls, it would make it easy to differentiate between a wall tile and a floor tile within FAI’s code. This would make different collision rules, or any other logical difference, simple to program when the time comes compared to only using one layer.
+
+With the first room and used tileset being just a prototype design, I am happy for now about how the room turned out. Within the Godot engine, press F5 and … 
+
+![First shot at the first room](/Screenshots/2.2/first_shot.png)
+
+The room is a bit small compared to the game window.
