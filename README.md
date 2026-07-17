@@ -14,6 +14,8 @@ Ever since I started learning to code, I knew I enjoyed solving problems using s
     2. [Creating the initial scene](#part-2-creating-the-initial-scene)
     3. [Zooming in](#part-3-zooming-in)
     4. [What seemed off, now seems on](#part-4-what-seemed-off-now-seems-on)
+3. **Giving the protagonist a acharacter**
+    1. [Initial design](#part-1-initial-design)
 
 ---
 
@@ -49,7 +51,7 @@ To draw scenes efficiently, I have settled on using a 16x16 pixel tile size rath
 
 With a basic initial spritesheet drawn, I can open Godot and start to build a world in which the player would be able to interact with (once we add the player character). However, I need a way to convert the spritesheet .png file into a world within the Godot scene.
 
-![FAI hub first tileset](/Screenshots/2.2/fai_hub.png)
+![FAI hub first tileset](/Screenshots/Chapter2/2.2/fai_hub.png)
 
 This is where a TileMap node comes into play. TileMapLayer node to be exact due to the TileMap node now being deprecated in Godot version 4.6.3. A TileMapLayer is just one layer of a TileMap, a tool which provides a grid system that can be filled with sprites to create static worlds quickly. Alongside the grid system, it allows me to create and manage tilesets which can be formed by slicing .png files, providing the solution of turning a spritesheet into a world. 
 
@@ -57,7 +59,7 @@ By using two layers (initially), one for the ground and one for the walls, it wo
 
 With the first room and used tileset being just a prototype design, I am happy for now about how the room turned out. Within the Godot engine, press F5 and … 
 
-![First shot at the first room](/Screenshots/2.2/first_shot.png)
+![First shot at the first room](/Screenshots/Chapter2/2.2/first_shot.png)
 
 The room is a bit small compared to the game window.
 
@@ -67,7 +69,7 @@ As mentioned in the previous FAI Dev-log (2.2 – Starting to draw a world - Cre
 
 So to fix the tiny room situation, we need a way to zoom into the scene. This is where the Camera2D node comes in. By adding this node, the game screen now snaps to the scope inside the camera box rather than the default scope that the scene normally has. As this scope is customisable, I am able to customise the scope that the camera sees by changing parameters such as position and scale. By increasing the scale, the scene zooms in and the problem is fixed. 
 
-![Attempt 2](/Screenshots/2.3/take2.png)
+![Attempt 2](/Screenshots/Chapter2/2.3/take2.png)
 
 However, something still seems off about the room. 
 
@@ -75,7 +77,7 @@ However, something still seems off about the room.
 
 As mentioned in the previous FAI dev-log (2.3 – Starting to draw a world - Zooming in), something seemed off about the initial room. 
 
-![Attempt 2](/Screenshots/2.3/take2.png)
+![Attempt 2](/Screenshots/Chapter2/2.3/take2.png)
 
 So I went to my inspiration for this project, Stardew Valley. I booted up my Nintendo Switch and loaded up my file I reached perfection on and started playing. Walking around the house, I realised an obvious thing. To create this perspective of top down (but not fully birdseye), the bottom wall has to cover the floor slightly. This fix needed some new tiles which I had to draw.
 
@@ -85,6 +87,17 @@ The fix for this is making use of Godot, as it offers a variety of options to cu
 
 With the aim to make the room have a dystopian feel, the flooring felt too light. Hence by lowering the ‘Red’, ‘Green’ and ‘Blue’ values on the RGBA value for the ‘Ground’ TileMapLayer, the floor becomes darker, saving me from redrawing the ground sprites. 
 
-![Attempt 3](/Screenshots/2.4/finished.png)
+![Attempt 3](/Screenshots/Chapter2/2.4/finished.png)
 
 With all that, we now have an empty room which is ready to go. Now what’s missing is a character which the player can control. 
+
+# Chapter 3: Giving the protagonist a character
+## Part 1: Initial design
+
+As already established in FAI Dev-log 2.1 (Starting to draw a world - Art direction), pixel art allows for quick designs for the spritemaps used for FAI. However, while the 16x16 pixel tile size works for tilesets related to the world, I chose to give a tileset size of 32x32 for the protagonist. Then by splitting the character into 3 sections (head, body, thruster), I can group each part together to form the protagonist. This saves having to draw every combination and also splits the logic for the correct animations which simplifies the program’s logic, which allows me to easily edit the file if I have to in the future.
+
+The reason why 32x32 pixel size was used for the protagonist was solely due to the head portion of the character. If I used 16x16 pixel size for the character, the facial expressions become rather limited due to the space that would be given to the eyes and mouth (4x2 compared to the 8x4 that a 32x32 pixel size allows). As I also previously mentioned in FAI Dev-log 2.1 (Starting to draw a world - Art direction), I am a novice artist. Hence, the character is a limbless robot making it easier to draw and animate for me as I improve my artistic capabailities. This means to stop the protagonist feeling lifeless, the only option is to majorly enhance the facial expressions giving the protagonist personality. 
+
+All in all, putting the character together, I'm pretty happy how it looks.
+
+![The initial design of the character](/Screenshots/Chapter3/3.1/Initial.png)

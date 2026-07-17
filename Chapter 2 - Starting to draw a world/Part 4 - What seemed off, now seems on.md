@@ -2,7 +2,7 @@
 
 As mentioned in the previous FAI dev-log (2.3 – Starting to draw a world - Zooming in), something seemed off about the initial room. 
 
-![Attempt 2](/Screenshots/2.3/take2.png)
+![Attempt 2](/Screenshots/Chapter2/2.3/take2.png)
 
 So I went to my inspiration for this project, Stardew Valley. I booted up my Nintendo Switch and loaded up my file I reached perfection on and started playing. Walking around the house, I realised an obvious thing. To create this perspective of top down (but not fully birdseye), the bottom wall has to cover the floor slightly. This fix needed some new tiles which I had to draw.
 
@@ -12,6 +12,6 @@ The fix for this is making use of Godot, as it offers a variety of options to cu
 
 With the aim to make the room have a dystopian feel, the flooring felt too light. Hence by lowering the ‘Red’, ‘Green’ and ‘Blue’ values on the RGBA value for the ‘Ground’ TileMapLayer, the floor becomes darker, saving me from redrawing the ground sprites. 
 
-![Attempt 3](/Screenshots/2.4/finished.png)
+![Attempt 3](/Screenshots/Chapter2/2.4/finished.png)
 
 With all that, we now have an empty room which is ready to go. Now what’s missing is a character which the player can control. 
