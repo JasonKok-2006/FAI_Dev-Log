@@ -1,0 +1,11 @@
+## 3.2 – Giving the protagonist a character - Adding a player scene
+
+Now we have a spritesheet for our player character, it's time to add the character into our scene. So I searched for a tutorial on how to do this in Godot for the engine syntax and of course every tutorial uses GDScript. Great. This means for most tutorials in Godot, for me to follow, I need to translate the logic from GDScript to C#. While this slows down development slightly, this forces me to understand the logic within the tutorial before it gets implemented into FAI. Understanding GDScript is surprisingly intuitive as it reminds me a lot about Python with some Haskell syntax. Skim through the video and … we can import scenes into other scenes! 
+
+While this doesn’t sound like a massive deal, it allows development of the game to be done through multiple scenes (e.g. a world scene, a player scene, a map scene) which can all be combined into a new main scene which is the full game. This makes the game easier to alter as if the world needs to be changed, then there is no risk in accidentally modifying the characters. 
+
+To add a character in Godot, I found using the AnimatedSprite2D solves this problem. This node is capable of holding many animations regarding the sprite we want to show. By adding an AnimatedSprite2D for the head, body and thruster parts of the character, they can all be grouped by making them all children of a CharacterBody2D node. Adding a basic character movement script to the CharacterBody2D node, we now have the first C# script and a controllable character! Press F5 and the animations work as intended; the code works. After the initial excitement of the progress, I came to the realisation … FAI isn’t anywhere near being fun. But I guess that is to be expected as the project is just starting out. 
+
+![Recording 1](/Recordings/3.2/recording1.mp4)
+
+P.S. The gameplay recordings sit in the FAI project folder, as it makes it easier to find for later uses such as showing progress through comparisons. These recordings make no sense to include within the GitHub repository as they aren’t necessary to the project. This is where .gitignore comes in. Any file or subdirectory which we don’t want shared, whether it’s unnecessary or for security reasons (e.g. API key files), .gitignore will ensure the files won’t be pushed to github.
