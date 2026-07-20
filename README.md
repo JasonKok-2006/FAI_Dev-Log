@@ -114,3 +114,5 @@ To add a character in Godot, I found using the AnimatedSprite2D solves this prob
 ![Recording 1](/Recordings/3.2/recording1.mp4)
 
 P.S. The gameplay recordings sit in the FAI project folder, as it makes it easier to find for later uses such as showing progress through comparisons. These recordings make no sense to include within the GitHub repository as they aren’t necessary to the project. This is where .gitignore comes in. Any file or subdirectory which we don’t want shared, whether it’s unnecessary or for security reasons (e.g. API key files), .gitignore will ensure the files won’t be pushed to github.
+
+**.gitignore is not used for the screenshots and video recordings for this repository. Why? Because these files need to be shared in the repository for the media to be displayed.**
