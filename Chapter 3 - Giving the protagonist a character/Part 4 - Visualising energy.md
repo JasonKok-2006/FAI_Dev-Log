@@ -37,3 +37,5 @@ public void CalculateTint(int currentEnergy, int fullEnergy)
 ```
 
 By using a solid white fill for the progress texture, RGBA tint values can be calculated based on the battery percentage that the player currently has. This allows for smooth colour change as the player’s energy depletes adding a sensible additional visual cue to the player, warning them that their time is running out.
+
+![Energy bar visual recorded](/Recordings/3.4/recording2.mp4)
