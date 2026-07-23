@@ -8,7 +8,7 @@ Now we have a representation of energy added to the main game scene, we need a w
 
 Now that we have access to the player script from another scene, we have something to think about. The game state updates every frame. However, the current energy system at the moment decrements the energy every 0.5 seconds. With the target frame rate at 60 frames per second, it means for every second 2 out of 60 frames have an energy level change. So if we update energy levels in _PhysicsProcess, such that the health bar gets updated every frame, we have 58 frames per second of unnecessary updates. This can be solved by creating a custom signal and updating the health bar once the custom signal has been emitted. Signals allow for data to be transferred between scenes without the other scene having to look within the other scene’s script, as the emitter can send out temporary values any receiver can read from. By using signals, we update the health bar visual only when there is a health change, eliminating 58 unnecessary updates per second. 
 
-```csharp
+```cs
 private const int GREEN_RANGE = 70;
 private const int AMBER_RANGE = 30;
 private const int BLUE_VAL = 40;
@@ -39,3 +39,25 @@ public void CalculateTint(int currentEnergy, int fullEnergy)
 By using a solid white fill for the progress texture, RGBA tint values can be calculated based on the battery percentage that the player currently has. This allows for smooth colour change as the player’s energy depletes adding a sensible additional visual cue to the player, warning them that their time is running out.
 
 ![Energy bar visual recorded](/Recordings/3.4/recording2.mp4)
+
+I want to finish this dev-log by talking about this line of code:
+
+```cs
+int batteryPercentage = (currentEnergy * 100) / fullEnergy;
+```
+
+The intuitive way to calculate batteryPercentage is:
+
+(currentEnergy / fullEnergy) * 100, 
+
+However, a slight problem, ints are used to represent the value of energy meaning the code is bound to integer arithmetic. This means decimals can’t be processed. So suppose we substitute values into the following values into this formula:
+
+(60 / 120) * 100,
+
+We get the answer 0, when we expect 50. This is because when using integers, the decimal becomes truncated, which means the equation becomes:
+
+(60 / 120) * 100
+= (0) * 100  
+= 0
+
+Which is a hard to find culprit for health related bugs. I came to the realisation that order of operations matter by printing the values using GD.Print() which is Godot’s version of Console.WriteLine(). Therefore the arithmetic bug has been fixed by rearranging the formula. While I am aware floats could have been used instead, making this debugging process irrelevant, computers have a hard time evaluating exact values for floating point calculations. Famously, 0.1 + 0.2 = 0.30000000000000004. With this game being treated as a time attack, too many floating point calculations leads to inconsistencies, which could create slight time differences potentially big enough to cause inconsistencies within the time limit. 
