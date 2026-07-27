@@ -19,6 +19,7 @@ Ever since I started learning to code, I knew I enjoyed solving problems using s
     2. [Adding a player scene](#part-2-adding-a-player-scene)
     3. [Nothing to show](#part-3-nothing-to-show)
     4. [Visualising energy](#part-4-visualising-energy)
+	5. [Expanding the energy system](#part-5-expanding-the-energy-system)
 
 ---
 
@@ -190,3 +191,16 @@ We get the answer 0, when we expect 50. This is because when using integers, the
 = 0
 
 Which is a hard to find culprit for health related bugs. I came to the realisation that order of operations matter by printing the values using GD.Print() which is Godot’s version of Console.WriteLine(). Therefore the arithmetic bug has been fixed by rearranging the formula. While I am aware floats could have been used instead, making this debugging process irrelevant, computers have a hard time evaluating exact values for floating point calculations. Famously, 0.1 + 0.2 = 0.30000000000000004. With this game being treated as a time attack, too many floating point calculations leads to inconsistencies, which could create slight time differences potentially big enough to cause inconsistencies within the time limit. 
+
+## Part 5: Expanding the energy system
+
+Splatoon, in my opinion, is one of the best designed game franchises ever made. Nintendo took the team vs team shooter genre, popularised by graphic series such as Counter-Strike and Call of Duty, and designed a family friendly entry to the genre. This was done by turning realistic weapons into ink-charged weapons, creating a paintball theme to the game. Leaning into the family friendly design, games aren’t conditioned solely on kill count, rather 5 different modes which focus on territory control. These match conditions often allow for less experienced players to still remain competitive against experienced players within the shooter genre, as the game doesn’t explicitly reward kills. That goes without saying; of course killing will help your team win the match. 
+
+With the weapons being ink-charged, the characters you play as are inklings. Inklings are human characters that can morph into squid form. Players can shoot in human form, whilst moving stealthier and accessing more areas in squid form. The switch between these two forms create depth and strategy to what would otherwise be a simple shooter. Ammunition is switched for ink stored in an ink tank, which squid form will recharge quickly if you swim in your own colour ink. Players have to keep track of their ink meter, otherwise your weapons don’t work and you’re left useless. This is also translated well for Inkling’s design in Super Smash Bros Ultimate, where certain attacks are less effective (or straight up don’t work) if you run out of ink. 
+
+So why have I spent the opening 2 paragraphs praising Inkling’s design rather than talking about my development process? Well, taking inspiration from Super Smash Bros Ultimate, FAI’s energy system will limit the character’s option in “low battery” mode, cutting off processes entirely. This feature will become clearer in the future when actions such as combat will be implemented but for now let's implement a “battery saver” with movement. 
+To do this we create a new action, such that when the player presses shift, the player speeds up. Once the player reaches “low battery” (15% of the maximum energy), we aim to cut the player off from moving faster. To help translate this into the script, Godot offers _UnhandledInput, a function that triggers when a key is pressed. Figuring out how to recognise the shift input, to say adding the “battery saver” went smoothly, I’d be lying. So let me paint the scene and describe the process. 
+
+My first attempt handled speed through one variable and constant speed multiplier. We set the new speed in shift mode by multiplying the value by the speed boost, and dividing by the speed boost when we no longer shift. Initially, IsShifting (a variable storing a boolean on if we should be moving fast) was overridden to false no matter what in “battery saver” and speed was recalculated after each press by a ternary operator based on the condition of IsShifting. This means pressing shift in “battery saver” divides the speed to go smaller than intended. Repeatedly press shift and the speed reaches 0. Yeah … that’s not meant to happen. Fixing this, more than one variable is used to set the player speed, avoiding the dynamic calculation which causes the value corruption. 
+
+After all that was figured out, the character didn’t automatically go into "battery saver” when it reached below 15% health. So, to do this another custom signal was added and triggers when the health reaches below 15%. This avoids the code repeatedly resetting the speed value as the condition allows for the code to trigger once compared to every frame if it was pushed within _PhysicsProcess(). 
