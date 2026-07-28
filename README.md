@@ -20,6 +20,7 @@ Ever since I started learning to code, I knew I enjoyed solving problems using s
     3. [Nothing to show](#part-3-nothing-to-show)
     4. [Visualising energy](#part-4-visualising-energy)
 	5. [Expanding the energy system](#part-5-expanding-the-energy-system)
+	6. [Finishing touches for now](#part-6-finishing-touches-for-now)
 
 ---
 
@@ -204,3 +205,19 @@ To do this we create a new action, such that when the player presses shift, the 
 My first attempt handled speed through one variable and constant speed multiplier. We set the new speed in shift mode by multiplying the value by the speed boost, and dividing by the speed boost when we no longer shift. Initially, IsShifting (a variable storing a boolean on if we should be moving fast) was overridden to false no matter what in “battery saver” and speed was recalculated after each press by a ternary operator based on the condition of IsShifting. This means pressing shift in “battery saver” divides the speed to go smaller than intended. Repeatedly press shift and the speed reaches 0. Yeah … that’s not meant to happen. Fixing this, more than one variable is used to set the player speed, avoiding the dynamic calculation which causes the value corruption. 
 
 After all that was figured out, the character didn’t automatically go into "battery saver” when it reached below 15% health. So, to do this another custom signal was added and triggers when the health reaches below 15%. This avoids the code repeatedly resetting the speed value as the condition allows for the code to trigger once compared to every frame if it was pushed within _PhysicsProcess(). 
+
+## Part 6: Finishing touches for now
+
+Looking at the game scene, something still seemed off. The character is meant to be floating in the air but there was no way to tell. This is because there is nothing to visualise where the player is. Many 2D games, including Stardew Valley, fix this problem by putting a shadow beneath the character’s feet to generate depth within the 2D plane. This was my original solution as well, however, one slight problem. My artistic direction swapped legs for a fire based thruster. 
+
+While games don’t always have to make sense, like tell me why I can fit 40 sharks in my pockets in Animal Crossing New Horizons, some elements do for an immersive effect. Putting shadows directly beneath a flame (a light source), breaks physical immersion inside a videogame. With that thought, the shadow solution is no longer on. My next thought was a burn trail. This could leave a short trail behind the character, which also breaks immersion as materials don’t magically get rid of burn marks, and permanent burn marks will essentially hide the art which makes up the world. So taking inspiration from the shadow, I created a simple animation of a ring of fire, to highlight the exact position of the player in an immersive way.
+
+!["Final verison of the character for now"](/Recordings/3.6/recording3.mp4)
+
+Now we have something to mark the position of the player, we might as well ensure the player interacts with the world correctly before moving on. To do this, a CollisionShape2D node is needed, which will act as a hitbox limiting where the player is able to go. To create the hitboxes for the walls, a Physics Layer is created, allowing for each tile within the tile set to hold a custom hitbox, which interacts with the ring of fire.
+
+The last thing needed to be done here is “y-sorting”. This dictates whether Godot should draw a sprite behind or in front of an object by comparing y-values with the sprite (default value is 0). A tutorial and some funny attempts (with the character fully disappearing) later, y-sorting has been solved, creating more immersion as the player scene is partially hidden behind the bottom wall. 
+
+With all of that done, the initial design of the protagonist is finished. While it is mute, the only logical sound effect so far would be a flamethrower. This will not be implemented as a constant stream of a repetitive sound will become stale quickly. A sound system will be dealt with later.
+
+The one final touch I want to add to the protagonist’s character is random intervals between the blinks. I could just use the random class Godot offers, but I have something special planned. 
