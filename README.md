@@ -24,6 +24,9 @@ Ever since I started learning to code, I knew I enjoyed solving problems using s
 4. **Determinising randomness**
 	1. [Outlining the PRNG](#part-1-outlining-the-prng)
 	2. [Optimised implemetation](#part-2-optimised-implementation)
+	3. [Putting it to use](#part-3-putting-it-to-use)
+5. **Meet FAI**
+	1. [Trigger warning](#part-1-trigger-warning)
 
 ---
 
@@ -343,3 +346,20 @@ Before we use this API, testing has to occur. Enough testing has to be done to e
 So back to the character’s blinking problem. This can be solved by choosing the min value 4 and the max value 9, where the intervals for blinking are seemingly random. The value of p is 67 and the value of g is 50 (no reason for these specific values). The value of x is determined from when the player starts the game, how many times the player has blinked so far. A variable keeps track, incrementing by 1 every time the player blinks, so a fresh result is called each time from the API. 
 
 No player controlled actions can affect this interval. While I specifically designed the PRNG this way so the player can affect randomness, some niche random elements within the game really does not need a player input!
+
+# Chapter 5: Meet FAI 
+## Part 1: Trigger warning
+
+Every game needs some objective for the player to work towards. In the case of Stardew Valley, it's initially rebuilding the community centre. In the case of Minecraft, an open world sandbox game, it’s defeating the Ender Dragon. 
+
+In the case of FAI, it’s collecting data for **FAI (Fragmented Artificial Intelligence)**, directly taking inspiration from the work I was doing for DataAnnotation for over a year now. The data collection goals are going to work like Stardew Valley community centre and Animal Crossing series' museum, which takes a chore-like task and makes it fun and rewarding. 
+
+Before we implement FAI, we need a way to activate him, some sort of trigger. Well FAI can’t be activated constantly, it’s a software which means we need some hardware to support it. A screen and well … the player character. 
+
+To activate the screen, we need something to turn it on. Something obvious to which a player can tell they should activate. A pressure plate. 
+
+This can easily be done with a new TileMapLayer node which displays the pressure plate and an Area2D node. Area2D nodes have built in signals which can be used to trigger functions when colliders enter and leave the defined area. By creating a script where the tileset gets swapped out when the player steps on the trigger and swaps back to the default when the player steps off the pressure plate, the problem of making an interactive pressure plate is solved.
+
+Well with the trigger set up, visually warning the player about activating FAI, the next step is to implement the character.
+
+![Showcase of the pressure plate](/Recordings/5.1/TriggerCreated.mp4)
